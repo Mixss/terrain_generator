@@ -6,18 +6,19 @@ from perlin_noise import PerlinNoiseFactory
 class TerrainGenerator:
     def __init__(self, size, scale):
         self.pnf = PerlinNoiseFactory(2, 1)
-        self.noise = self.generate_noise(size, scale)
+        self.size = size
+        self.scale = scale
 
-    def generate_noise(self, size, scale):
-        noise = [[0]*size for i in range(size)]
-        for i in range(size):
-            for j in range(size):
-                noise[i][j] = (self.pnf(i/size * scale, j/size * scale) + 1) * 128
-        return noise
+    def get_noise_at(self, x, y):
+        return self.pnf(x/self.size * self.scale, y/self.size * self.scale)
 
-    def draw(self, window: pygame.Surface, size):
-        for i in range(size):
-            for j in range(size):
-                window.set_at((i, j), (self.noise[i][j], self.noise[i][j], self.noise[i][j]))
+    def draw_noise(self, window: pygame.Surface):
+        for i in range(self.size):
+            for j in range(self.size):
+                color = (self.get_noise_at(i,j) + 1) * 128
+                window.set_at((i, j), (color, color, color))
+
+    def draw(self, window: pygame.Surface):
+        pass
 
 

@@ -16,8 +16,7 @@ class App:
     def render(self):
         pygame.draw.rect(self.window, (255, 255, 255), pygame.Rect(0, 0, SIZE, SIZE))
 
-        self.generator.draw(self.window, SIZE)
-
+        self.generator.draw_noise(self.window)
         pygame.display.update()
 
     def update(self):
