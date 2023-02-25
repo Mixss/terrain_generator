@@ -1,5 +1,9 @@
 import pygame
 
+from generator import TerrainGenerator
+
+SIZE = 900
+SCALE = 5
 
 class App:
     def __init__(self, width, height, window_title):
@@ -7,8 +11,12 @@ class App:
         self.window = pygame.display.set_mode((width, height))
         pygame.display.set_caption(window_title)
 
+        self.generator = TerrainGenerator(SIZE, SCALE)
+
     def render(self):
-        pygame.draw.rect(self.window, (255, 255, 255), pygame.Rect(0, 0, 256, 256))
+        pygame.draw.rect(self.window, (255, 255, 255), pygame.Rect(0, 0, SIZE, SIZE))
+
+        self.generator.draw(self.window, SIZE)
 
         pygame.display.update()
 
@@ -27,6 +35,7 @@ class App:
             self.render()
 
 
-app = App(256, 256, "Terrain Generator")
+
+app = App(SIZE, SIZE, "Terrain Generator")
 app.loop()
 
